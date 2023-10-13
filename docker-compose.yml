@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  
+  web2:
+    container_name: web_django3
+    build:
+      context: .
+    ports:
+      - "8003:8003"
+    entrypoint: ./wsgi-entrypoint.sh
+    restart: always
+    volumes:
+      - ./media/:/media/
+      - ./static/:/static/
+    # depends_on:
+    #   - db
+
+
+  # db:
+  #   container_name: database3
+  #   image: postgres:12.0-alpine
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data/
+  #   env_file:
+  #     - ./.env
+  #   restart: always
+
+  # redis:
+  #   container_name: redis_send
+  #   image: redis
+
+  # celery:
+  #   container_name: celery
+  #   build:
+  #     context: .
+  #   restart: always
+  #   command: sh -c "celery -A core worker -l INFO"
+  #   volumes:
+  #     - ./:/app
+  #   depends_on:
+  #     - redis
+  #     - web
+
+volumes:
+  static:
+  media:
+  # postgres_data:
+  
